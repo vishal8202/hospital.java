@@ -102,6 +102,39 @@ public class hospital {
                     break;
                 case 3:
                     System.out.println("Search Patient");
+                    System.out.println("Enter the patient Id: ");
+                    patientId = input.nextInt();
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospitaldb", "root", "");
+                        String sql = "SELECT `name`, `address`, `pincode`, `phone`, `symptoms`, `docname` FROM `patients` WHERE `patientid` =  "+String.valueOf(patientId);
+
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+                            String getPatientName = rs.getString("name");
+                            String getPatientAddress = rs.getString("address");
+                            String getPin = rs.getString("pincode");
+                            String getPatientPhone = rs.getString("phone");
+                            String getPatientSymptoms = rs.getString("symptoms");
+                            String getPatientDoc =rs.getString("docname");
+
+                            System.out.println("Patient Name="+getPatientName);
+                            System.out.println("Patient Address="+getPatientAddress);
+                            System.out.println("Patient Pincode="+getPin);
+                            System.out.println("Patient Phone="+getPatientPhone);
+                            System.out.println("Patient Symptoms="+getPatientSymptoms);
+                            System.out.println("Patients Doctor="+getPatientDoc+"\n");
+
+                        }
+
+
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+
 
 
                     break;
@@ -138,6 +171,20 @@ public class hospital {
                     break;
                 case 5:
                     System.out.println("Delete Patient");
+                    System.out.println("Enter the Patient Id : ");
+                    patientId = input.nextInt();
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospitaldb", "root", "");
+                        String sql = "DELETE FROM `patients` WHERE `patientid` = " + patientId;
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Patient Data deleted successfully.");
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
 
 
                     break;
